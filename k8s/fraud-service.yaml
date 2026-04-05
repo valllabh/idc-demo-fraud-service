@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud-service
+  namespace: acme-banking
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fraud-service
+  template:
+    metadata:
+      labels:
+        app: fraud-service
+    spec:
+      containers:
+      - name: fraud-service
+        image: 850301148750.dkr.ecr.us-east-1.amazonaws.com/idc-dast-demo/fraud-service:v1.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: SERVICE_NAME
+          value: "fraud-service"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fraud-service
+  namespace: acme-banking
+spec:
+  type: ClusterIP
+  selector:
+    app: fraud-service
+  ports:
+  - port: 80
+    targetPort: 3000
+  # No Ingress. Internal only.
