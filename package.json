@@ -12,5 +12,9 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-server-dom-webpack": "19.2.0"
+  },
+  "overrides": {
+    "tar": "7.5.4",
+    "cross-spawn": "7.0.6"
   }
 }
